@@ -1,28 +1,23 @@
 name: MLOps Pipeline
 
-on:
-  pull_request:
-    branches: [ "main" ]
-  # Allow mannually trigger
-  workflow_dispatch:
+on: [push]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10", "3.12"]
     steps:
-
-    - uses: action/checkout@v2
-    - name: Set up Python 3.12
-      uses: action/Python-for-MLOps-pipeline@v1
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
       with:
-        python-version: 3.12
+        python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
         make install
-    - name: Lnt with pylint
+    - name: Analysing the code with pylint
       run: |
         make lint
     - name: Test with pytest
