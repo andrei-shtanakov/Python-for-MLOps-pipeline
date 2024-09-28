@@ -7,6 +7,8 @@ name = "pypi"
 pylint = "*"
 pytest = "*"
 black = "*"
+wikipedia = "*"
+fire = "*"
 
 [dev-packages]
 

@@ -5,14 +5,13 @@ install:
 		pipenv --python 3.12 && \
 		pipenv shell && \
 		pipenv install -r requirements.txt && \
-		exit && \
 		pipenv shell
 
 activate:
 	pipenv shell
 
 test:
-	python -m pytest -vv test_hello.py
+	python -m pytest -vv test_*.py
 
 format:
 	black *.py
@@ -25,5 +24,5 @@ clean:
 	rm -rf  __pycache__/
 	rm -rf  hello.egg-info/
 
-all:  test format lint
+all: install  test format lint
 
