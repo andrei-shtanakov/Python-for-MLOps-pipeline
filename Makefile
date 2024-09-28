@@ -1,5 +1,15 @@
+SHELL := /bin/bash
+
 install:
-	pip install --upgrade pip && pip install -r requirements.txt
+	pip install --user pipenv && \
+		pipenv --python 3.12 && \
+		pipenv shell && \
+		pipenv install -r requirements.txt && \
+		exit && \
+		pipenv shell
+
+activate:
+	pipenv shell
 
 test:
 	python -m pytest -vv test_hello.py
@@ -15,5 +25,5 @@ clean:
 	rm -rf  __pycache__/
 	rm -rf  hello.egg-info/
 
-all: install test format lint
+all:  test format lint
 
